@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>content loader- task1</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        #loadingMessage {
+            display: none;
+            font-size: 14px;
+            color: blue;
+        }
+        #errorMessage {
+            color: red;
+        }
+        #container {
+            width: 50%;
+        }
+        #displayArea {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-top: 20px;
+            height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>load text from file</h1>
+        
+        <button id="btnXMLHttpRequest">load content</button>
+
+        <div id="loadingMessage">fetching content, please wait...</div>
+        <div id="displayArea"></div>
+        <div id="errorMessage"></div>
+    </div>
+
+    <script>
+        function load() {
+            const xhr = new XMLHttpRequest();
+            const content = document.getElementById("displayArea");
+            const loading = document.getElementById("loadingMessage");
+            const error = document.getElementById("errorMessage");
+
+            loading.style.display = "block";
+            error.textContent = "";
+            content.textContent = "";
+
+            xhr.open("GET", "text.txt", true);
+
+            xhr.onload = function () {
+                loading.style.display = "none";
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    content.textContent = xhr.responseText;
+                } else {
+                    error.textContent = "failed to load: " + xhr.statusText;
+                }
+            };
+
+            xhr.onerror = function () {
+                loading.style.display = "none";
+                error.textContent = "connection error occurred.";
+            };
+
+            xhr.send();
+        }
+
+        document.getElementById("btnXMLHttpRequest").addEventListener("click", load);
+    </script>
+</body>
+</html>
+
+
+
