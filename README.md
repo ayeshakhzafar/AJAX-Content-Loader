@@ -1,6 +1,6 @@
 # Basic Text Loading #
 
-## ✅ Description ##
+## Description ##
 This task demonstrates simple AJAX functionality using:
 
 XMLHttpRequest
